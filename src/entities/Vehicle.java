@@ -3,6 +3,7 @@ package entities;
 public class Vehicle extends Thread{
 
     private String type; 
+    private String generalType; 
     private String licensePlate; 
 
     private Bridge bridge; 
@@ -11,7 +12,8 @@ public class Vehicle extends Thread{
     }
 
     public Vehicle(String type, String licensePlate, Bridge bridge) {
-        this.type = verifyType(type); 
+        this.type = type; 
+        this.generalType = verifyType(type); 
         this.licensePlate = licensePlate; 
         this.bridge = bridge; 
     }
@@ -22,6 +24,14 @@ public class Vehicle extends Thread{
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getGeneralType() {
+        return generalType;
+    }
+
+    public void setGeneralType(String generalType) {
+        this.generalType = generalType;
     }
 
     public String getLicensePlate() {
@@ -56,10 +66,9 @@ public class Vehicle extends Thread{
     }
 
     @Override
-    public void run() {
-        while(true){
-            bridge.toEnter(type);
-            System.out.println("-> Deposited item: " + type + ": " + licensePlate);
-        }
+    public void run() {    
+        System.out.println("-> Deposited item => " + type.toUpperCase() + " - " + licensePlate + " - Priority: " + this.getPriority());
+        bridge.toEnter(generalType, licensePlate);
+    
     }
 }
